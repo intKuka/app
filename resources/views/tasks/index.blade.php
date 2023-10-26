@@ -43,7 +43,8 @@
                     width: 15%;
                     background-color:rgb(233, 222, 222);
                     margin: 1%;
-                    font-size: 24px"
+                    font-size: 24px;
+                    font-align: center" 
                 >
                     @switch($task->status)
                         @case(0)   
