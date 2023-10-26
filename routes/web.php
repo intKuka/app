@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\TasksController;
-use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
 /*

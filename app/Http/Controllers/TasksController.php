@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,10 +29,9 @@ class TasksController extends Controller
     public function store(Request $request) {
         $form = $request->validate([
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'sometimes'
         ]);
-        // TODO: make an emun
-        $form['status'] = 0;
+        $form['status'] = Category::category['new'];
         Task::create($form);
 
         return redirect('/tasks');
@@ -47,7 +47,7 @@ class TasksController extends Controller
         $form = $request->validate([
             'title' => 'required',
             'status' => 'required',
-            'description' => 'required'
+            'description' => 'sometimes'
         ]);
         $task->update($form);
 

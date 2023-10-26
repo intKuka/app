@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Support\Facades\Validator;
 
 class TasksController extends Controller {
     public function index() {
@@ -18,26 +20,35 @@ class TasksController extends Controller {
     }
 
     public function store(Request $request) {
-        $form = $request->validate([
+        $validator = Validator::make($request->all(), [            
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'sometimes',
         ]);
-        // TODO: make an emun
-        $form['status'] = 0;
-        Task::create($form);
 
-        return response()->json(data:$form, status:201);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        } else {            
+            $task = Task::create($request->all());
+            $task['status'] = Category::category['new'];
+            return response()->json($task, 201);
+        }
     }
     
     public function update(Request $request, $id) {
-        $form = $request->validate([
+
+        $validator = Validator::make($request->all(), [            
             'title' => 'required',
-            'status' => 'required',
-            'description' => 'required'
+            'status' => 'required|numeric|digits:1|between:0,2',
+            'description' => 'sometimes'
         ]);
-        $task = Task::find($id);
-        $task->update($form);
-        return response()->json(data: $task);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        } else {            
+            $task = Task::find($id);
+            $task->update($request->all());
+            return response()->json($task);
+        }        
     }
 
     public function destroy($id) {
