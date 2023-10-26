@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TasksController;
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// GET all tasks
+Route::get('/tasks', [TasksController::class, 'index']);
+
+// GET show create form
+Route::get('/tasks/create', [TasksController::class, 'create']);
+
+// POST store new task
+Route::post('/tasks', [TasksController::class, 'store']);
+
+// GET show edit form
+Route::get('/tasks/{task}/edit', [TasksController::class, 'edit']);
+
+// DELETE destroy task
+Route::delete('tasks/{task}', [TasksController::class, 'destroy']);
+
+// PUT update task
+Route::put('tasks/{task}', [TasksController::class, 'update']);
+
+// GET single task
+Route::get('/tasks/{task}', [TasksController::class, 'show']);
