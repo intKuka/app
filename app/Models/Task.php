@@ -12,4 +12,10 @@ class Task extends Model
     protected $attributes = array(
         'status' => 0
     );
+
+    public function scopeFilter($query, $filter) {
+        if($filter ?? false) {
+            $query->where('status', 'like', '%' . Category::category[request('category')] . '%');
+        }
+    }
 }

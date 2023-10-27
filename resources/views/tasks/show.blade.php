@@ -4,43 +4,58 @@
     <title>{{$task->title}}</title>
 </head>
 <body>
-    <div style="padding-bottom: 2%">
-            <label for="title" class="inline-block">
-                Title:<br>
-            </label>
-            <input type="text" name="title" value="{{$task->title}}" disabled >
-    </div>
+    <header>        
+        <div class="container">
+            @extends('layouts.layout')
+        </div>
+    </header>
+    @section('content')
+        <div class="mt-5 display-5" style="margin-left: 2%"> 
+            <a href="/tasks">
+                <button type="button" class="btn btn-dark">
+                    <i class="bi bi-arrow-return-left"> Cancel</i>
+                </button>
+            </a>         
+        </div>
 
-    <div style="padding-bottom: 2%">
-        <label for="status" class="inline-block">
-            Status:<br>
-        </label>
-        @switch($task->status)
-            @case(0)
-            <input type="text" name="status" value="New" disabled >
-                @break
-            @case(1)
-            <input type="text" name="status" value="In Process" disabled >
-                @break
-            @case(2)
-            <input type="text" name="status" value="Completed" disabled >
-                @break
-            @default  
-            <input type="text" name="status" value="Unknown" disabled >
-        @endswitch 
-    </div>
+        <div class="form-row justify-content-center py-3">
+            <div class="form-group col-md-4">
+                <label for="title">Title</label>
+                <input class="form-control" type="text" name="title" value="{{$task->title}}" disabled >
+            </div>
+            <div class="form-group col-md-2">
+                <label for="title">Status</label>
+                @switch($task->status)
+                    @case(0)
+                    <input class="form-control" type="text" name="status" value="New" disabled >
+                        @break
+                    @case(1)
+                    <input class="form-control" type="text" name="status" value="In Process" disabled >
+                        @break
+                    @case(2)
+                    <input class="form-control" type="text" name="status" value="Completed" disabled >
+                        @break
+                    @default  
+                @endswitch
+            </div>
+        </div>
 
-    <div style="padding-bottom: 2%">
-        <label for="description" class="inline-block">
-            Description:<br>
-        </label>
-        <textarea name="description" disabled>{{$task->description}}</textarea>
-    </div>
+        <div class="row justify-content-center py-3">
+            <div class="col-md-5 text-center">
+                <a href="/tasks/{{$task->id}}/edit">                
+                    <button type="submit" class="btn btn-primary btn-lg inline ">Edit</button>  
+                </a>                      
+            </div> 
+        </div>
 
-    <div>
-        <form action="/tasks" style="display: inline">
-            <input type="submit" value="Back" />
-        </form>
-    </div>
+        <div class="form-row justify-content-center py-3">
+            <div class="form-group col-md-12">
+                <label class="col-md-12 text-center">Description</label>
+                <textarea class="form-control justify-content-center span6 m-auto w-50" name="description" disabled>{{$task->description}}</textarea>
+            </div>
+        </div>
+    @endsection
 </body>
 </html>
+
+ 

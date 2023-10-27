@@ -5,13 +5,16 @@
     <title>Your ToDOs</title>
 </head>
 <body>
-    <main>
-        <div>
-            @extends('layout')
+    <header>        
+        <div class="container">
+            @extends('layouts.layout')
         </div>
+    </header>
+    <main>
+        @section('content')
         @foreach ($tasks as $task)
-            <div style="margin-bottom: 
-                2%;padding: 2%; 
+            <div style="margin-bottom: 2%;
+                padding: 1%; 
                 border:1px solid black"
             >
                 <h1 style="display: inline"> 
@@ -65,6 +68,7 @@
                 </div>                        
             </div>        
         @endforeach
+        @endsection
     </main>
 </body>
 </html>
